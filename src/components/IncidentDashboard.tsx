@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -49,15 +48,15 @@ export const IncidentDashboard = () => {
 
   const getSeverityColor = (severity: string) => {
     const baseColors = {
-      High: "bg-green-800 dark:bg-green-600 text-white",
-      Medium: "bg-green-600 dark:bg-green-700 text-white",
-      Low: "bg-green-500 dark:bg-green-700 text-white",
+      High: "bg-red-600 dark:bg-red-800 text-white", // Changed to red
+      Medium: "bg-yellow-500 dark:bg-yellow-700 text-white", // Changed to yellow
+      Low: "bg-green-500 dark:bg-green-700 text-white", // Kept green
     };
-    return baseColors[severity as keyof typeof baseColors] || "bg-green-400 dark:bg-green-600 text-white";
+    return baseColors[severity as keyof typeof baseColors] || "bg-gray-400 text-white";
   };
 
   return (
-    <div className="min-h-screen bg-sky-100 dark:bg-sky-900">
+    <div className="min-h-screen bg-gray-100 dark:bg-orange-800">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-blue-500 dark:bg-blue-700 p-4 rounded-lg shadow-md">
@@ -74,7 +73,7 @@ export const IncidentDashboard = () => {
                 </Button>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="bg-purple-600 hover:bg-purple-700 text-white">
+                    <Button className="bg-purple-800 hover:bg-purple-900 text-white">
                       Report New Incident
                     </Button>
                   </DialogTrigger>
@@ -141,7 +140,7 @@ export const IncidentDashboard = () => {
                     <Button
                       variant="outline"
                       onClick={() => toggleExpanded(incident.id)}
-                      className="bg-purple-500 hover:bg-purple-600 text-white"
+                      className="bg-purple-800 hover:bg-purple-900 text-white"
                     >
                       {expandedIncidents.includes(incident.id)
                         ? "Hide Details"
