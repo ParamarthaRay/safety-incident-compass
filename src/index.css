@@ -96,7 +96,7 @@
   }
 
   body {
-    @apply bg-[#F2FCE2] text-[#6E59A5];
+    @apply bg-[hsl(var(--app-background))] text-[hsl(var(--deep-purple))];
   }
 }
 
@@ -106,6 +106,10 @@
   }
 
   .soft-shadow {
-    @apply shadow-[0_4px_6px_rgba(110,89,165,0.1)] hover:shadow-[0_6px_8px_rgba(110,89,165,0.2)];
+    @apply shadow-[0_4px_6px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_8px_rgba(0,0,0,0.2)] transition-shadow duration-300;
+  }
+
+  .card-hover {
+    @apply hover:bg-[hsl(var(--card-bg))] transition-colors duration-300;
   }
 }

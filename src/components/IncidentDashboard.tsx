@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,16 +8,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowUp, ArrowDown, Filter } from "lucide-react";
+import { ArrowUp, ArrowDown, Filter, Moon, Sun } from "lucide-react";
 import { mockIncidents, Incident } from "@/data/mockIncidents";
 import { NewIncidentForm } from "./NewIncidentForm";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useTheme } from "@/hooks/useTheme";
 
 export const IncidentDashboard = () => {
   const [incidents, setIncidents] = useState<Incident[]>(mockIncidents);
   const [selectedSeverity, setSelectedSeverity] = useState<string>("All");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [expandedIncidents, setExpandedIncidents] = useState<number[]>([]);
+  const { theme, toggleTheme } = useTheme();
 
   const filteredIncidents = incidents
     .filter((incident) =>
@@ -46,111 +47,115 @@ export const IncidentDashboard = () => {
   };
 
   const getSeverityColor = (severity: string) => {
-    switch (severity) {
-      case "High":
-        return "bg-red-100 text-red-700";
-      case "Medium":
-        return "bg-orange-100 text-orange-700";
-      case "Low":
-        return "bg-green-100 text-green-700";
-      default:
-        return "bg-gray-100 text-gray-700";
-    }
+    const baseColors = {
+      High: "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200",
+      Medium: "bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200",
+      Low: "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200",
+    };
+    return baseColors[severity as keyof typeof baseColors] || "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200";
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-[#F2FCE2]">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#D6BCFA]/20 p-4 rounded-lg shadow-sm">
-          <h1 className="text-2xl font-bold text-[#6E59A5]">AI Safety Incident Dashboard</h1>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button 
-                className="bg-[#9b87f5] hover:bg-[#7E69AB] transition-colors duration-300 ease-in-out transform hover:scale-105"
-              >
-                Report New Incident
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <NewIncidentForm onSubmit={handleAddIncident} />
-            </DialogContent>
-          </Dialog>
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-4 bg-[#E5DEFF] p-4 rounded-lg shadow-md">
-          <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-[#8B5CF6]" />
-            <Select
-              value={selectedSeverity}
-              onValueChange={setSelectedSeverity}
-            >
-              <SelectTrigger className="w-[180px] border-[#9b87f5]">
-                <SelectValue placeholder="Select Severity" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="All">All Severities</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="High">High</SelectItem>
-              </SelectContent>
-            </Select>
+    <div className="min-h-screen">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[hsl(var(--navbar-bg))] p-4 rounded-lg shadow-md">
+            <div className="flex items-center justify-between w-full">
+              <h1 className="text-2xl font-bold text-white">AI Safety Incident Dashboard</h1>
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleTheme}
+                  className="bg-white/10 hover:bg-white/20"
+                >
+                  {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="bg-[hsl(var(--dark-green))] hover:bg-[hsl(var(--dark-green))] text-white">
+                      Report New Incident
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[425px]">
+                    <NewIncidentForm onSubmit={handleAddIncident} />
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
           </div>
 
-          <Button
-            variant="outline"
-            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-            className="flex items-center gap-2 border-[#9b87f5] hover:bg-[#D6BCFA]/30 transition-colors duration-300 ease-in-out transform hover:scale-105"
-          >
-            {sortOrder === "asc" ? (
-              <ArrowUp className="h-4 w-4 text-[#8B5CF6]" />
-            ) : (
-              <ArrowDown className="h-4 w-4 text-[#8B5CF6]" />
-            )}
-            {sortOrder === "asc" ? "Oldest First" : "Newest First"}
-          </Button>
-        </div>
+          <div className="flex flex-col sm:flex-row gap-4 bg-[hsl(var(--card-bg))] p-4 rounded-lg shadow-md">
+            <div className="flex items-center gap-2">
+              <Filter className="h-4 w-4" />
+              <Select
+                value={selectedSeverity}
+                onValueChange={setSelectedSeverity}
+              >
+                <SelectTrigger className="w-[180px] bg-white/50 dark:bg-black/50">
+                  <SelectValue placeholder="Select Severity" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="All">All Severities</SelectItem>
+                  <SelectItem value="Low">Low</SelectItem>
+                  <SelectItem value="Medium">Medium</SelectItem>
+                  <SelectItem value="High">High</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-        <div className="grid gap-4">
-          {filteredIncidents.map((incident) => (
-            <Card 
-              key={incident.id} 
-              className="p-6 bg-white hover:bg-[#F2FCE2] transition-colors duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-lg"
+            <Button
+              variant="outline"
+              onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+              className="bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70"
             >
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col sm:flex-row justify-between gap-4">
-                  <div className="flex flex-col gap-2">
-                    <h3 className="font-semibold text-lg text-[#6E59A5]">{incident.title}</h3>
-                    <div className="flex gap-2 items-center">
-                      <span
-                        className={`px-2 py-1 rounded-full text-sm font-medium ${getSeverityColor(
-                          incident.severity
-                        )} hover:scale-105 transition-transform`}
-                      >
-                        {incident.severity}
-                      </span>
-                      <span className="text-sm text-[#7E69AB]">
-                        {new Date(incident.reported_at).toLocaleDateString()}
-                      </span>
+              {sortOrder === "asc" ? (
+                <ArrowUp className="h-4 w-4 mr-2" />
+              ) : (
+                <ArrowDown className="h-4 w-4 mr-2" />
+              )}
+              {sortOrder === "asc" ? "Oldest First" : "Newest First"}
+            </Button>
+          </div>
+
+          <div className="grid gap-4">
+            {filteredIncidents.map((incident) => (
+              <Card 
+                key={incident.id} 
+                className="p-6 bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70 transition-all duration-300 soft-shadow"
+              >
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col sm:flex-row justify-between gap-4">
+                    <div className="flex flex-col gap-2">
+                      <h3 className="font-semibold text-lg">{incident.title}</h3>
+                      <div className="flex gap-2 items-center">
+                        <span className={`px-2 py-1 rounded-full text-sm font-medium ${getSeverityColor(incident.severity)}`}>
+                          {incident.severity}
+                        </span>
+                        <span className="text-sm opacity-80">
+                          {new Date(incident.reported_at).toLocaleDateString()}
+                        </span>
+                      </div>
                     </div>
+                    <Button
+                      variant="outline"
+                      onClick={() => toggleExpanded(incident.id)}
+                      className="bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70"
+                    >
+                      {expandedIncidents.includes(incident.id)
+                        ? "Hide Details"
+                        : "View Details"}
+                    </Button>
                   </div>
-                  <Button
-                    variant="outline"
-                    onClick={() => toggleExpanded(incident.id)}
-                    className="border-[#9b87f5] hover:bg-[#D6BCFA]/30 transition-colors duration-300 ease-in-out transform hover:scale-105"
-                  >
-                    {expandedIncidents.includes(incident.id)
-                      ? "Hide Details"
-                      : "View Details"}
-                  </Button>
+                  {expandedIncidents.includes(incident.id) && (
+                    <p className="mt-2 p-3 rounded-md bg-white/30 dark:bg-black/30">
+                      {incident.description}
+                    </p>
+                  )}
                 </div>
-                {expandedIncidents.includes(incident.id) && (
-                  <p className="text-[#6E59A5] mt-2 bg-[#E5DEFF]/50 p-3 rounded-md">
-                    {incident.description}
-                  </p>
-                )}
-              </div>
-            </Card>
-          ))}
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>
