@@ -96,6 +96,16 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#F2FCE2] text-[#6E59A5];
+  }
+}
+
+@layer utilities {
+  .hover-scale {
+    @apply transform hover:scale-105 transition-transform duration-300;
+  }
+
+  .soft-shadow {
+    @apply shadow-[0_4px_6px_rgba(110,89,165,0.1)] hover:shadow-[0_6px_8px_rgba(110,89,165,0.2)];
   }
 }
