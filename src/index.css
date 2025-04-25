@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 97%; /* Light gray background */
+    --background: 0 0% 197%; /* Light gray background */
     --foreground: 222.2 84% 4.9%;
 
     --navbar-bg: 214 96% 61%; /* Blue navbar */
@@ -55,14 +55,15 @@
   }
 
   .dark {
-    --background: 30 100% 50%; /* Orange background for dark mode */
+    --background: 30 100% 100%; /* Orange background for dark mode */
     --foreground: 210 40% 98%;
 
     --navbar-bg: 214 96% 31%; /* Dark Blue navbar */
     --card-bg: 122 39% 19%; /* Dark Green containers */
     
     --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card-foreground: 0 0% 0%;
+
 
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
@@ -95,27 +96,30 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
-  }
-}
-
-@layer utilities {
+@layer components {
   .hover-scale {
-    @apply transform hover:scale-105 transition-transform duration-300;
+    transform: scale(1);
+    transition: transform 300ms;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.05);
   }
 
   .soft-shadow {
-    @apply shadow-[0_4px_6px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_8px_rgba(0,0,0,0.2)] transition-shadow duration-300;
+    box-shadow: 0 4px 6px rgba(214, 105, 105, 0.588);
+    transition: box-shadow 300ms;
+  }
+
+  .soft-shadow:hover {
+    box-shadow: 0 6px 8px rgba(180, 84, 84, 0.489);
   }
 
   .card-hover {
-    @apply hover:bg-[hsl(var(--card-bg))] transition-colors duration-300;
+    transition: background-color 300ms;
+  }
+
+  .card-hover:hover {
+    background-color: hsl(var(--card-bg));
   }
 }

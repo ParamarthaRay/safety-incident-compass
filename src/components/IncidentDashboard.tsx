@@ -56,10 +56,10 @@ export const IncidentDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-orange-800">
+    <div className="min-h-screen bg-white-600 dark:bg-black">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-blue-500 dark:bg-blue-700 p-4 rounded-lg shadow-md">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-blue-500 dark:bg-blue-500 p-4 rounded-lg shadow-md">
             <div className="flex items-center justify-between w-full">
               <h1 className="text-2xl font-bold text-white">AI Safety Incident Dashboard</h1>
               <div className="flex items-center gap-4">
@@ -67,13 +67,13 @@ export const IncidentDashboard = () => {
                   variant="outline"
                   size="icon"
                   onClick={toggleTheme}
-                  className="bg-white/10 hover:bg-white/20"
+                  className="bg-black/10 hover:bg-black/30"
                 >
                   {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                 </Button>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="bg-purple-800 hover:bg-purple-900 text-white">
+                    <Button className="bg-purple-900 hover:bg-pink-500 text-white">
                       Report New Incident
                     </Button>
                   </DialogTrigger>
@@ -85,14 +85,14 @@ export const IncidentDashboard = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 bg-sky-200 dark:bg-sky-800 p-4 rounded-lg shadow-md">
+          <div className="flex flex-col sm:flex-row gap-4 bg-sky-500 dark:bg-pink-300 p-4 rounded-lg shadow-md">
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4" />
               <Select
                 value={selectedSeverity}
                 onValueChange={setSelectedSeverity}
               >
-                <SelectTrigger className="w-[180px] bg-white/50 dark:bg-black/50">
+                <SelectTrigger className="w-[180px] bg-white/40 dark:bg-black/20">
                   <SelectValue placeholder="Select Severity" />
                 </SelectTrigger>
                 <SelectContent>
@@ -107,7 +107,7 @@ export const IncidentDashboard = () => {
             <Button
               variant="outline"
               onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-              className="bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70"
+              className="bg-white/40 dark:bg-black/20 hover:bg-white/70 dark:hover:bg-black/20"
             >
               {sortOrder === "asc" ? (
                 <ArrowUp className="h-4 w-4 mr-2" />
@@ -122,7 +122,7 @@ export const IncidentDashboard = () => {
             {filteredIncidents.map((incident) => (
               <Card 
                 key={incident.id} 
-                className="p-6 bg-green-100 dark:bg-green-800 hover:bg-green-200 dark:hover:bg-green-700 transition-all duration-300 soft-shadow"
+                className="p-6 bg-green-300 dark:bg-orange-400 hover:bg-green-400 dark:hover:bg-green-500 transition-all duration-300 soft-shadow"
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col sm:flex-row justify-between gap-4">
@@ -140,7 +140,7 @@ export const IncidentDashboard = () => {
                     <Button
                       variant="outline"
                       onClick={() => toggleExpanded(incident.id)}
-                      className="bg-purple-800 hover:bg-purple-900 text-white"
+                      className="bg-pink-400 hover:bg-sky-500 text-black"
                     >
                       {expandedIncidents.includes(incident.id)
                         ? "Hide Details"
