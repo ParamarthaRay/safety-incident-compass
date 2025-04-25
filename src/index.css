@@ -4,9 +4,12 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 202 64% 94%; /* Sky Blue background for light mode */
     --foreground: 222.2 84% 4.9%;
 
+    --navbar-bg: 214 96% 61%; /* Blue navbar for light mode */
+    --card-bg: 122 39% 89%; /* Light Green containers for light mode */
+    
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
 
@@ -52,9 +55,12 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 202 64% 14%; /* Dark Sky Blue for dark mode */
     --foreground: 210 40% 98%;
 
+    --navbar-bg: 214 96% 31%; /* Dark Blue navbar */
+    --card-bg: 122 39% 19%; /* Dark Green containers */
+    
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
 
@@ -96,7 +102,7 @@
   }
 
   body {
-    @apply bg-[hsl(var(--app-background))] text-[hsl(var(--deep-purple))];
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))];
   }
 }
 

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -48,18 +49,18 @@ export const IncidentDashboard = () => {
 
   const getSeverityColor = (severity: string) => {
     const baseColors = {
-      High: "bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200",
-      Medium: "bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200",
-      Low: "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-200",
+      High: "bg-green-800 dark:bg-green-600 text-white",
+      Medium: "bg-green-600 dark:bg-green-700 text-white",
+      Low: "bg-green-500 dark:bg-green-700 text-white",
     };
-    return baseColors[severity as keyof typeof baseColors] || "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200";
+    return baseColors[severity as keyof typeof baseColors] || "bg-green-400 dark:bg-green-600 text-white";
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-sky-100 dark:bg-sky-900">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[hsl(var(--navbar-bg))] p-4 rounded-lg shadow-md">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-blue-500 dark:bg-blue-700 p-4 rounded-lg shadow-md">
             <div className="flex items-center justify-between w-full">
               <h1 className="text-2xl font-bold text-white">AI Safety Incident Dashboard</h1>
               <div className="flex items-center gap-4">
@@ -73,7 +74,7 @@ export const IncidentDashboard = () => {
                 </Button>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className="bg-[hsl(var(--dark-green))] hover:bg-[hsl(var(--dark-green))] text-white">
+                    <Button className="bg-purple-600 hover:bg-purple-700 text-white">
                       Report New Incident
                     </Button>
                   </DialogTrigger>
@@ -85,7 +86,7 @@ export const IncidentDashboard = () => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 bg-[hsl(var(--card-bg))] p-4 rounded-lg shadow-md">
+          <div className="flex flex-col sm:flex-row gap-4 bg-sky-200 dark:bg-sky-800 p-4 rounded-lg shadow-md">
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4" />
               <Select
@@ -122,7 +123,7 @@ export const IncidentDashboard = () => {
             {filteredIncidents.map((incident) => (
               <Card 
                 key={incident.id} 
-                className="p-6 bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70 transition-all duration-300 soft-shadow"
+                className="p-6 bg-green-100 dark:bg-green-800 hover:bg-green-200 dark:hover:bg-green-700 transition-all duration-300 soft-shadow"
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col sm:flex-row justify-between gap-4">
@@ -140,7 +141,7 @@ export const IncidentDashboard = () => {
                     <Button
                       variant="outline"
                       onClick={() => toggleExpanded(incident.id)}
-                      className="bg-white/50 dark:bg-black/50 hover:bg-white/70 dark:hover:bg-black/70"
+                      className="bg-purple-500 hover:bg-purple-600 text-white"
                     >
                       {expandedIncidents.includes(incident.id)
                         ? "Hide Details"
@@ -148,7 +149,7 @@ export const IncidentDashboard = () => {
                     </Button>
                   </div>
                   {expandedIncidents.includes(incident.id) && (
-                    <p className="mt-2 p-3 rounded-md bg-white/30 dark:bg-black/30">
+                    <p className="mt-2 p-3 rounded-md bg-green-200 dark:bg-green-700">
                       {incident.description}
                     </p>
                   )}
