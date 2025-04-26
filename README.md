@@ -60,7 +60,5 @@ The application will be available at `http://localhost:8080`
 - Responsive design
 - Interactive incident cards with expandable details
 
-## 📝 License
 
-MIT
 
