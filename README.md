@@ -17,7 +17,7 @@ A real-time dashboard for tracking and managing AI safety incidents, built with 
 
 1. Clone the repository:
 ```bash
-git clone [your-repository-url]
+git clone https://github.com/ParamarthaRay/safety-incident-compass.git
 cd safety-incident-compass
 ```
 
