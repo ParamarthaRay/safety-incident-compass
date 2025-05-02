@@ -148,7 +148,7 @@ export const IncidentDashboard = () => {
                     </Button>
                   </div>
                   {expandedIncidents.includes(incident.id) && (
-                    <p className="mt-2 p-3 rounded-md bg-green-200 dark:bg-green-700">
+                    <p className="mt-2 p-3 rounded-md bg-green-200 dark:bg-green-500">
                       {incident.description}
                     </p>
                   )}
